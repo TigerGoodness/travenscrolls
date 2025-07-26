@@ -26,11 +26,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '4@23kRrm-"#f!Ma!9&@4CvH^^+fs(=IH0"qc`6dQLQQ}`Yjz2{'
 db.init_app(app)
 
-klassid=[i for i in fail_open_read_lines("Important/select_Class.txt")]
-taustad=[i for i in fail_open_read_lines("Important/select_BG.txt")]
-rassid=[i for i in fail_open_read_lines("Important/select_Race.txt")]
-loitsud=[i for i in fail_open_read_lines("Important/Spell_list.txt")]
-vaike_tekst=read_and_dictionary("Important/small_text.txt")
+#klassid=[i for i in fail_open_read_lines("Important/select_Class.txt")]
+#taustad=[i for i in fail_open_read_lines("Important/select_BG.txt")]
+#rassid=[i for i in fail_open_read_lines("Important/select_Race.txt")]
+#loitsud=[i for i in fail_open_read_lines("Important/Spell_list.txt")]
+#vaike_tekst=read_and_dictionary("Important/small_text.txt")
 
 @app.route('/')
 def esileht():

@@ -1,0 +1,41 @@
+Select Class
+A character's skills, abilities, and role in adventure.
+
+Artificer
+Inventive mage crafting magical gadgets, potions, and enchanted gear.
+
+Barbarian
+Raging warrior fueled by primal instincts and unmatched resilience.
+
+Bard
+Charismatic performer using magic, artistic abilities, and words to inspire.
+
+Cleric
+Devout healer wielding divine magic and holy power.
+
+Druid
+Nature’s guardian, shape-shifter, and spellcaster of primal forces.
+
+Fighter
+Versatile combat expert excelling in weapons and battle tactics.
+
+Monk
+Martial artist mastering ki for agility, speed, and strikes.
+
+Paladin
+Holy warrior sworn to justice, righteousness, and divine power.
+
+Ranger
+Skilled tracker, archer, and survivalist attuned to nature.
+
+Rogue
+Stealthy trickster excelling in precision, deception, and agility.
+
+Sorcerer
+Innate spellcaster harnessing raw, unpredictable magical power.
+
+Warlock
+Pact-bound spellcaster wielding eldritch magic from a supernatural patron.
+
+Wizard
+Scholarly spellcaster mastering arcane knowledge through study.

@@ -1,0 +1,78 @@
+{% extends 'mall.html' %}
+
+{% block head %}
+    <title>{{ klass.nimi.strip()}}</title>
+{% endblock %}
+
+{% block body %}
+<div class="class-info-wrapper">
+
+    <div class="class-info-header"> <!-- nimi -->
+        {% if klass.nimi %}<h1>{{ klass.nimi.strip() }}</h1>{% endif %}
+    </div>
+
+    <div class="class-info-container">
+        {% if klass.text %}
+            <div class="class-info-description"> <!-- description -->
+                <p>{{ klass.text.strip()}}</p>
+            </div>
+        {% endif %}
+
+        <div class="class-info-traits">  <!-- saving throw & hit die-->
+            {% if klass.saving_throw %}
+                <p><strong>Saving Throws: </strong>{{ klass.saving_throw.strip() }}</p>
+            {% endif %}
+            {% if klass.hit_points %}
+                <p><strong>Hit Point Die: </strong>{{ klass.hit_points.strip()}}</p>
+            {% endif %}
+        </div>
+
+        <div class="class-info-proficiencies-container"> <!-- proficienncy (e armor) -->
+            <h4><strong>Proficiencies:</strong></h4>
+            <div class="class-info-proficiencies">
+                {% if klass.proficiencies %}
+                    {% for proficiencies in klass.proficiencies.strip().split('\n') %}
+                        <p><strong>{{ proficiencies.split(' ', 1)[0] }}</strong> {{ proficiencies.split(' ', 1)[1] }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="class-info-equipment-container"> <!-- equipment (e starting equipment) -->
+            <h4><strong>Starting Equipment:</strong></h4>
+            <div class="class-info-equipment">
+                {% if klass.equipment %}
+                    {% for equipment in klass.equipment.strip().split('\n') %}
+                        <p>{{ equipment}}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="class-info-features-wrapper"> <!-- levels and bonuses -->
+            <h3>Features: </h3>
+            <div class="class-info-features-container">
+                {% for i, content in levels.items() %}
+                    <div class="class-info-feature">
+                        <p><strong>Level {{ i }}</strong></p>
+                        <p>{{ content }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="class-info-class-features-wrapper"> <!-- features n content -->
+            <h3>Class Features:</h3>
+            <div class="class-info-class-features-container">
+                {% for i in features.keys() %}
+                    <div class="class-info-class-feature">
+                        <p><strong>{{ i }}</strong></p>
+                        <p>{{ features[i] }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

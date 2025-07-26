@@ -1,0 +1,118 @@
+{% extends 'mall.html' %}
+
+{% block head %}
+<title>Logi sisse</title>
+{% endblock %}
+
+{% block body %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <script>
+      alert("{{ messages[0] }}");
+      flash(None)
+    </script>
+  {% endif %}
+{% endwith %}
+<div class="login-space">
+    <div class="login-box">
+        <form class="login-form" method='POST'>
+            <h2>Login</h2>
+
+            <div class="input-container">
+                <p>Kasutajanimi:</p>
+                <input type='text' name="login_nimi" id='nimi' placeholder=" " required>
+            </div>
+
+            <div class="input-container">
+                <p>Parool:</p>
+                <div class="input-field">
+                    <input type='password' name="login_text" id='password' placeholder=" " required>
+                    <input type="checkbox" id="toggle-password" onclick="togglePassword()">
+                    <label for="toggle-password" class="eye-icon"></label>
+
+                    <script>
+                        function togglePassword() {
+                            var x = document.getElementById("password");
+                            if (x.type === "password") {
+                                x.type = "text";
+                            } else {
+                                x.type = "password";
+                            }
+                        }
+                    </script>
+                </div>
+            </div>
+
+            <div class="forgot-password">
+                <button type="button">Forgot Password?</button>
+            </div>
+
+            <div class="login-container">
+                <input type='submit' name="login" value='Log In'>
+            </div>
+
+            <div class="register-link">
+                <p>Dont have an account? </p>
+                <button type="button" onclick="showRegisterForm()">Register</button>
+
+                <script>
+                    function showRegisterForm() {
+                        document.querySelector(".login-box").classList.add("registration-enabled");
+                    }
+                </script>
+            </div>
+        </form>
+
+
+        <form class="register-form" method="POST">
+            <div class="register-heading">
+                <button class="show-login-button" type="button" onclick="showLoginForm()"></button>
+                <h2>Register</h2>
+
+                <script>
+                    function showLoginForm() {
+                        document.querySelector(".login-box").classList.remove("registration-enabled");
+                    }
+                </script>
+            </div>
+
+            <div class="input-container">
+                <p>Email:</p>
+                <input type="text" name="reg_mail" id="reg_mail" placeholder=" " required>
+            </div>
+
+            <div class="input-container">
+                <p>Kasutajanimi:</p>
+                <input type="text" name="reg_nimi" id="reg_nimi" placeholder=" " required>
+            </div>
+
+            <div class="input-container">
+                <p>Parool:</p>
+                <input type="password" name="reg_text" id="reg_text" placeholder=" " required>
+            </div>
+
+            <div class="register-container">
+                <input type="submit" name="register" value="Registreeru">
+            </div>
+        </form>
+    </div>
+
+
+    <script>
+        window.addEventListener("DOMContentLoaded", (event) => {
+            const errorMessage = document.getElementById("error-message");
+
+            if (errorMessage) {
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 3000);
+            }
+        });
+    </script>
+
+    {% if error!=None %}
+         <h1 class="error" id="error-message">{{error}}</h1>
+    {% endif %}
+
+</div>
+{% endblock %}

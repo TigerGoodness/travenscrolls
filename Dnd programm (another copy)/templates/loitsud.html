@@ -1,0 +1,108 @@
+{% extends 'mall.html' %}
+
+{% block head %}
+    <title>Loitsud</title>
+{% endblock %}
+
+{% block body %}
+<body>
+    <div class="spells-wrapper">
+        <div class="spells-panel">
+            <div class="spells-nav">
+                <form class="nav-search" action="/search" method="GET">
+                    <input type="text" name="q" placeholder="Search..">
+
+                    <select class="filter" name="level" id="level-filter">
+                        <option value="">All Levels</option>
+                        <option value="0">Cantrip</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+
+                    <select class="filter" name="school" id="school-filter">
+                        <option value="">All Schools</option>
+                        <option value="Abjuration">Abjuration</option>
+                        <option value="Conjuration">Conjuration</option>
+                        <option value="Divination">Divination</option>
+                        <option value="Enchantment">Enchantment</option>
+                        <option value="Evocation">Evocation</option>
+                        <option value="Illusion">Illusion</option>
+                        <option value="Necromancy">Necromancy</option>
+                        <option value="Transmutation">Transmutation</option>
+                    </select>
+                </form>
+
+                <div class="nav-level">
+                    <p>SPELL<br>LEVEL</p>
+                </div>
+                <div class="nav-school">
+                    <p>SPELL<br>SCHOOL</p>
+                </div>
+            </div>
+
+            <div class="spell-scrollable-menu">
+                {% for loits in loitsud %}
+                    <button class="spell-box-button" type="button" onclick="window.location.href='/loits?nimi={{ loits.nimi | urlencode }}'">
+                        <div class="spell-icon-display"></div>
+                        <div class="spell-name-display">
+                            <p>{{ loits.nimi.strip() }}</p>
+                        </div>
+                        <div class="spell-level-display">
+                            <p>{{ loits.level.strip() }}</p>
+                        </div>
+                        <div class="spell-school-display">
+                            <p>{{ loits.kool.strip().capitalize() }}</p>
+                        </div>
+                    </button>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+function openSpell(spellName) {
+    const encodedName = btoa(unescape(encodeURIComponent(spellName))); // UTF-8 safe
+    window.location.href = '/loitsud/' + encodedName;
+}
+document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.querySelector('input[name="q"]');
+    const levelSelect = document.getElementById('level-filter');
+    const schoolSelect = document.getElementById('school-filter');
+    const spellButtons = document.querySelectorAll('.spell-box-button');
+
+    function filterSpells() {
+        const nameQuery = searchInput.value.toLowerCase();
+        const levelQuery = levelSelect.value.toLowerCase();
+        const schoolQuery = schoolSelect.value.toLowerCase();
+
+        spellButtons.forEach(button => {
+            const name = button.querySelector('.spell-name-display p').textContent.toLowerCase();
+            const level = button.querySelector('.spell-level-display p').textContent.toLowerCase();
+            const school = button.querySelector('.spell-school-display p').textContent.toLowerCase();
+
+            const matchesName = name.includes(nameQuery);
+            const matchesLevel = levelQuery === "" || level === levelQuery;
+            const matchesSchool = schoolQuery === "" || school === schoolQuery;
+
+            if (matchesName && matchesLevel && matchesSchool) {
+                button.style.display = "";
+            } else {
+                button.style.display = "none";
+            }
+        });
+    }
+
+    searchInput.addEventListener('input', filterSpells);
+    levelSelect.addEventListener('change', filterSpells);
+    schoolSelect.addEventListener('change', filterSpells);
+});
+</script>
+{% endblock %}

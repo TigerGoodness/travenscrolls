@@ -1,0 +1,48 @@
+{% extends 'mall.html' %}
+
+{% block head %} {% endblock %}
+
+{% block body %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <script>
+      alert("{{ messages[0] }}");
+    </script>
+  {% endif %}
+{% endwith %}
+<div class="main">
+    <div class="info_panel">
+        <h2>Information</h2>
+        <div class="info">
+            <ul class="info-upper">
+                <li><a href="/klassid" draggable="false">Class</a></li>
+                <li><a href="/rassid" draggable="false">Race</a></li>
+                <li><a href="/taustad" draggable="false">Background</a></li>
+            </ul>
+            <ul class="info-lower">
+                <li><a href="/loitsud" draggable="false">Spells</a></li>
+                <li><a href="/equipment" draggable="false">Equipment</a></li>
+                <li><a href="/features" draggable="false">Feats</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="right_section">
+        <div class="character_panel">
+            <h2>Characters</h2>
+            <ul class="char">
+                <li><a href="/characters" draggable="false">My character</a></li>
+                <li><a href="/newcharacter" draggable="false">New Character</a></li>
+                <li><a href="/homebrew" draggable="false">Homebrew</a></li>
+            </ul>
+        </div>
+        <div class="other_panel">
+            <h2>Other</h2>
+            <ul class="other">
+                <li><a href="/dice_roll" draggable="false">Dice Roll</a></li>
+                <li><a href="/soundboard" draggable="false">Soundboard</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

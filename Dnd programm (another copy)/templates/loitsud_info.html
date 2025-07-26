@@ -1,0 +1,38 @@
+{% extends 'mall.html' %}
+
+{% block head %}
+<title>{{ loits.nimi.strip()}}</title>
+{% endblock %}
+
+{% block body %}
+<div class="spell-info-container">
+    <div class="spell-info-heading">
+        <h1>{{ loits.nimi.strip() }}</h1>
+    </div>
+    <div class="spell-info-stats">
+        <p><strong>Casting Time:</strong>  {{ loits.aeg.strip() }}</p>
+        <p><strong>School:</strong>  {{ loits.kool.strip().capitalize() }}</p>
+        <p><strong>Duration:</strong>  {{ loits.kestvus.strip() }}</p>
+        <p><strong>Range:</strong>  {{ loits.kaugus.strip() }}</p>
+        <p class="spell-level-text"><strong>Level:</strong>  {{ loits.level.strip() }}</p>
+        <p><strong>Components:</strong>  {{ loits.koostisosad.strip() }}</p>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var p = document.querySelector('.spell-level-text');
+                if (p && p.textContent.trim().endsWith('0')) {
+                    p.append(' (cantrip)');
+                }
+            });
+        </script>
+
+    </div>
+    <div class="spell-info-body" style="display: flex; flex-direction: column; gap: 20px;">
+
+        {% for i in loits.text.split('\n') %}
+            <p>{{ i }}</p>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}

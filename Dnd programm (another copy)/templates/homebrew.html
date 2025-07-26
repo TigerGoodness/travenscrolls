@@ -1,0 +1,29 @@
+{% extends 'mall.html' %}
+
+{% block head %}
+<title>Homebrew</title>
+{% endblock %}
+
+{% block body %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <script>
+      alert("{{ messages[0] }}");
+    </script>
+  {% endif %}
+{% endwith %}
+
+<div class="homebrew-options">
+        <h2>Lisa endale meelepärane homebrew</h2>
+
+        <ul class="homebrew-grid">
+                <li><a href="/homebrew/klass">Uus klass</a></li>
+                <li><a href="/homebrew/rass">Uus rass</a></li>
+                <li><a href="/homebrew/taust">Uus taust</a></li>
+                <li><a href="/homebrew/loits">Uus loits</a></li>
+                <li><a href="/homebrew/feat">Uus feat</a></li>
+                <li><a href="/homebrew/equipment">Uus equipment</a></li>
+        </ul>
+</div>
+{% endblock %}

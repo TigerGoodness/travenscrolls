@@ -1,0 +1,241 @@
+{% extends 'mall.html' %}
+{% block body %}
+
+<div class="homebrew-container" >
+
+    <h1><strong>Tee oma homebrew klass</strong></h1>
+
+    <form class="homebrew-class-form" action='/homebrew/klass' method='POST' enctype="multipart/form-data">
+        <div class="homebrew-class-form-box">
+            <p><strong>Nimi:</strong></p>
+            <input type='text' name='nimi' id='nimi' placeholder="Midagi..." placeholder="Midagi..." required>
+        </div>
+
+        <div class="homebrew-class-form-box">
+            <div>
+                <p><strong>Class Description:</strong></p>
+                <input type='text' name='text' id='text' placeholder="Midagi..." required>
+            </div>
+
+            <div>
+                <p><strong>Short description:</strong></p>
+                <input type="text" name="small-text" id="small-text" placeholder="Midagi..." >
+            </div>
+        </div>
+
+        <div class="homebrew-class-form-box">
+            <p><strong>Saving Throws:</strong></p>
+            <div class="homebrew-class-checkbox-container">
+                {% for saving_throw in saving_throws[0].split(', ') %}
+                    <div class="homebrew-class-checkbox">
+                        <input type="checkbox" id="{{ saving_throw }}" name="saving_throws" value="{{ saving_throw }}">
+                        <label for="{{ saving_throw }}"> {{ saving_throw }}</label>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="homebrew-class-form-box">
+            <p><strong>Image</strong></p>
+            <input type="file" name="image" accept="image/*" placeholder="Midagi..." required>
+        </div>
+
+        <div class="homebrew-class-form-box" style="display: flex; flex-direction: row;">
+            <p><strong>Hit Points</strong></p>
+
+            <!-- see "filter" klass tootab aga hiljem peab praktilisemaks tegema -->
+            <select class="filter" id="hitpoints" name="hitpoints" placeholder="Midagi..." required>
+                <option value="1d4">1d4 per level</option>
+                <option value="1d6">1d6 per level</option>
+                <option value="1d8">1d8 per level</option>
+                <option value="1d10">1d10 per level</option>
+                <option value="1d12">1d12 per level</option>
+            </select>
+        </div>
+
+        <div class="homebrew-class-form-box">
+            <p><strong>Proficiencies</strong></p>
+
+            <div class="homebrew-class-proficiency-wrapper">
+                <div class="homebrew-class-proficiency-container">
+                    <h4>Armor</h4>
+                    <div class="homebrew-class-proficiency-box">
+                        {% set armors = ['None', 'Light Armor', 'Medium Armor', 'Heavy Armor', 'Shield', 'All Armor'] %}
+                        {% for armor in armors %}
+                            <div class="homebrew-class-proficiency-checkbox">
+                                <input type="checkbox" id="{{ armor }}" name="armor" value="{{ armor }}">
+                                <label for="{{ armor }}">{{ armor }}</label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="homebrew-class-proficiency-container">
+                    <h4>Weapons</h4>
+                    <div class="homebrew-class-proficiency-box">
+                        {% set base_weapons = ['Simple Weapons', 'Martial weapons', 'None'] %}
+                        {% for weapon in base_weapons %}
+                            <div class="homebrew-class-proficiency-checkbox">
+                                <input type="checkbox" id="{{ weapon }}" name="weapons" value="{{ weapon }}">
+                                <label for="{{ weapon }}">{{ weapon }}</label>
+                            </div>
+                        {% endfor %}
+                        {% for weapon in weapons %}
+                            <div class="homebrew-class-proficiency-checkbox">
+                                <input type="checkbox" id="{{ weapon }}" name="weapons" value="{{ weapon }}">
+                                <label for="{{ weapon }}">{{ weapon }}</label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="homebrew-class-proficiency-container">
+                    <h4>Tools</h4>
+                    <div class="homebrew-class-proficiency-box">
+                        {% set tools = [
+                            'None', 'Artisan’s Tools', 'Disguise kit', 'Forgery kit',
+                            'Herbalism kit', 'Navigator’s tools', 'Poisoner’s kit',
+                            'Thieves’ tools', 'Musical Instrument'
+                        ] %}
+                        {% for tool in tools %}
+                            <div class="homebrew-class-proficiency-checkbox">
+                                <input type="checkbox" id="{{ tool }}" name="tools" value="{{ tool }}">
+                                <label for="{{ tool }}">{{ tool }}</label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="homebrew-class-proficiency-container">
+                    <h4>Skills</h4>
+                    <div class="homebrew-class-proficiency-box">
+                        {% set skills = [
+                            'Acrobatics', 'Animal Handling', 'Arcana', 'Athletics', 'Deception', 'History',
+                            'Insight', 'Intimidation', 'Investigation', 'Medicine', 'Nature', 'Perception',
+                            'Performance', 'Persuasion', 'Religion', 'Sleight of Hand', 'Stealth', 'Survival'
+                        ] %}
+                        {% for skill in skills %}
+                            <div class="homebrew-class-proficiency-checkbox">
+                                <input type="checkbox" id="{{ skill }}" name="skills" value="{{ skill }}">
+                                <label for="{{ skill }}">{{ skill }}</label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="homebrew-class-form-box">
+            <p><strong>Features by Level</strong></p>
+
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <div>
+                    <label for="feature-level">Level:</label>
+                    <select class="filter" id="feature-level">
+                        {% for i in range(1, 21) %}
+                            <option value="{{ i }}">Level {{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div style="display: flex; gap: 15px;">
+                    <label for="feature-name">Name: </label>
+                    <input type="text" id="feature-name" placeholder="Midagi...">
+                </div>
+
+                <div>
+                    <label for="feature-description">Description: </label>
+                    <input type="text" id="feature-description" placeholder="Midagi...">
+                </div>
+            </div>
+
+            <button type="button" onclick="addFeature()">Add Feature</button>
+        </div>
+
+
+        <div id="feature-container">
+            <!-- Feature list will appear here -->
+        </div>
+
+        <!-- Hidden field to send feature data -->
+        <input type="hidden" name="features" id="features-json">
+
+        <button type='submit' value='Add Homebrew'>Add Homebrew</button>
+    </form>
+
+    <script>
+        let featuresByLevel = {};
+
+        function addFeature() {
+          const level = document.getElementById("feature-level").value;
+          const name = document.getElementById("feature-name").value.trim();
+          const description = document.getElementById("feature-description").value.trim();
+
+          if (!name || !description) {
+            alert("Please enter both a name and a description for the feature.");
+            return;
+          }
+
+          if (!featuresByLevel[level]) {
+            featuresByLevel[level] = [];
+          }
+
+          featuresByLevel[level].push({ name, description });
+
+          updateFeatureDisplay();
+          updateHiddenField();
+
+          // Clear inputs
+          document.getElementById("feature-name").value = "";
+          document.getElementById("feature-description").value = "";
+        }
+
+        function deleteFeature(level, index) {
+          featuresByLevel[level].splice(index, 1);
+          if (featuresByLevel[level].length === 0) {
+            delete featuresByLevel[level];
+          }
+          updateFeatureDisplay();
+          updateHiddenField();
+        }
+
+        function updateFeatureDisplay() {
+          const container = document.getElementById("feature-container");
+          container.innerHTML = "";
+
+          const levels = Object.keys(featuresByLevel).sort((a, b) => parseInt(a) - parseInt(b));
+          levels.forEach(level => {
+            const levelDiv = document.createElement("div");
+            levelDiv.className = 'levelDiv'; //selle kus level on ja teised divid
+            levelDiv.innerHTML = `<h4>Level ${level}</h4>`;
+
+            featuresByLevel[level].forEach((feature, index) => {
+              const levelTextDiv = document.createElement('div');
+              const heading = document.createElement("p");
+              const disc = document.createElement('p');
+              const levelDivButton = document.createElement('div');
+              levelTextDiv.className = 'levelTextDiv'; //selle kus text on ja button div
+              levelDivButton.className = 'levelDivButton'; //selle kus on button sees
+              heading.innerHTML = `<strong>${feature.name}</strong>`;
+              disc.innerHTML = `${feature.description}`;
+              levelDivButton.innerHTML = `<button type="button" onclick="deleteFeature('${level}', ${index})">Delete</button>`;
+              levelTextDiv.appendChild(heading);
+              levelTextDiv.appendChild(disc)
+              levelTextDiv.appendChild(levelDivButton);
+              levelDiv.appendChild(levelTextDiv);
+            });
+
+            container.appendChild(levelDiv);
+
+          });
+        }
+
+        function updateHiddenField() {
+          const hiddenField = document.getElementById("features-json");
+          hiddenField.value = JSON.stringify(featuresByLevel);
+        }
+    </script>
+
+</div>
+
+{% endblock %}

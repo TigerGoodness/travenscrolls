@@ -1,0 +1,4 @@
+How to use D&D Random Character Maker:
+1. Choose what you know you want on your character;
+2. Click button what says 'Generate Character';
+3. Write that info on your character sheet.

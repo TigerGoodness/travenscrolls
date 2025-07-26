@@ -1,0 +1,37 @@
+{% extends 'mall.html' %}
+
+{% block head %}
+<title>Klassid</title>
+{% endblock %}
+
+{% block body %}
+<div class="classes-wrapper">
+    <div class="classes-panel">
+    {% for klass in klassid %}
+        <div class="class-box">
+            <button class="class-button" type="button" onclick="window.location.href='/klass?nimi={{ klass.nimi | urlencode }}'">
+                <img src="{{ url_for('static', filename='Class_img/' + klass.nimi.strip() + '.png') }}"
+                     class="class-image"
+                     alt="{{ klass.nimi.strip() }}">
+            </button>
+            <div class="class-description">
+                <p>{{ klass.small_text.strip() }}</p>
+            </div>
+        </div>
+    {% endfor %}
+    {% for homebrew in homebrews %}
+        <div class="class-box">
+            <button class="class-button" type="button" onclick="window.location.href='/klass?nimi={{ homebrew.nimi | urlencode }}'">
+                <img src="{{ url_for('static', filename='Class_img/' + homebrew.nimi.strip() + '.png') }}"
+                     class="class-image"
+                     alt="{{ homebrew[0].nimi }}">
+            </button>
+            <div class="class-description">
+                <p>{{ homebrew.small_text.strip() }}</p>
+            </div>
+        </div>
+    {% endfor %}
+        </div>
+    <div class="classes-margin"></div>
+</div>
+{% endblock %}

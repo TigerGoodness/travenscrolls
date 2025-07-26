@@ -1,0 +1,8 @@
+Select Background
+Acolyte
+Criminal
+Folk Hero
+Haunted One
+Noble
+Sage
+Soldier

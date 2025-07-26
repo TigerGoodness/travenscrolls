@@ -21,7 +21,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import json
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///info.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/info.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '4@23kRrm-"#f!Ma!9&@4CvH^^+fs(=IH0"qc`6dQLQQ}`Yjz2{'
 db.init_app(app)
